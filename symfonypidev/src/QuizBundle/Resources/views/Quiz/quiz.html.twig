@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <section class="page-section-ptb grey-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 mb-30 text-center"><h3 class="title divider mb-30">Veuillez répondre à ces questions.</h3></div>
+                <div class="col-sm-12">
+                    <div class="tab tab-icon clearfix">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="active"><a href="#tab2-1" data-toggle="tab" aria-expanded="false"><i class="glyph-icon flaticon-signs-1"></i><span>Social </span></a></li>
+                            <li><a href="#tab2-2" data-toggle="tab" aria-expanded="true"><i class="glyph-icon flaticon-hearts"></i><span>Vie Couple</span></a></li>
+                            <li><a href="#tab2-3" data-toggle="tab"><i class="glyph-icon flaticon-people-2"></i><span>Physique</span></a></li>
+                            <li><a href="#tab2-4" data-toggle="tab"><i class="glyph-icon flaticon-love-birds"></i><span>Personalitée</span></a></li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+
+                            <div role="tabpanel" class="tab-pane fade active in" id="tab2-1">
+                                {% for question in questions %}
+                                    {% if question.type == "QuestSociale" %}
+                                        <h3>{{ question.question }}</h3>
+                                        <input type="radio" name="QuestSoc{{ loop.index }}" value="{{ question.scorerep1 }}">{{ question.reponse1 }}<br>
+                                        <input type="radio" name="QuestSoc{{ loop.index }}" value="{{ question.scorerep2 }}">{{ question.reponse2 }}<br>
+                                        <input type="radio" name="QuestSoc{{ loop.index }}" value="{{ question.scorerep3 }}">{{ question.reponse3 }}<br>
+                                        <br>
+                                        <br>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab2-2">
+                                {% for question in questions %}
+                                    {% if question.type == "QuestVieCouple" %}
+                                        <h3>{{ question.question }}</h3>
+                                        <input type="radio" name="QuestVieC{{ loop.index }}" value="{{ question.scorerep1 }}">{{ question.reponse1 }}<br>
+                                        <input type="radio" name="QuestVieC{{ loop.index }}" value="{{ question.scorerep2 }}">{{ question.reponse2 }}<br>
+                                        <input type="radio" name="QuestVieC{{ loop.index }}" value="{{ question.scorerep3 }}">{{ question.reponse3 }}<br>
+                                        <br>
+                                        <br>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab2-3">
+                                {% for question in questions %}
+                                    {% if question.type == "QuestPhysique" %}
+                                        <h3>{{ question.question }}</h3>
+                                        <input type="radio" name="QuestPhy{{ loop.index }}" value="{{ question.scorerep1 }}">{{ question.reponse1 }}<br>
+                                        <input type="radio" name="QuestPhy{{ loop.index }}" value="{{ question.scorerep2 }}">{{ question.reponse2 }}<br>
+                                        <input type="radio" name="QuestPhy{{ loop.index }}" value="{{ question.scorerep3 }}">{{ question.reponse3 }}<br>
+                                        <br>
+                                        <br>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab2-4">
+                                {% for question in questions %}
+                                    {% if question.type == "QuestPersonalite" %}
+                                        <h3>{{ question.question }}</h3>
+                                        <input type="radio" name="QuestPerso{{ loop.index }}" value="{{ question.scorerep1 }}">{{ question.reponse1 }}<br>
+                                        <input type="radio" name="QuestPerso{{ loop.index }}" value="{{ question.scorerep2 }}">{{ question.reponse2 }}<br>
+                                        <input type="radio" name="QuestPerso{{ loop.index }}" value="{{ question.scorerep3 }}">{{ question.reponse3 }}<br>
+                                        <br>
+                                        <br>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div><center><a href="{{ path('ShowmatchIndex') }}" onclick="getScore();"  class="button  btn-lg btn-theme full-rounded animated right-icn"><span>Valider<i class="glyph-icon flaticon-hearts" aria-hidden="true"></i></span></a></center></div>
+        </div>
+
+    </section>
+    <script src="{{ asset('assets/js/jquery-3.2.1.js') }}"></script>
+    <script>
+        function getScore()
+        {
+            var scoreVC = 0, scoreS = 0, scorePh = 0, scorePer = 0;
+            var VieCouple = document.querySelectorAll('input[name^="QuestVieC"]');
+            var Sociale = document.querySelectorAll('input[name^="QuestSoc"]');
+            var Phy = document.querySelectorAll('input[name^="QuestPhy"]');
+            var Perso = document.querySelectorAll('input[name^="QuestPerso"]');
+            for(var i=0; i<VieCouple.length;i++)
+        {
+                if(VieCouple[i].checked)
+                {
+                    scoreVC += parseInt(VieCouple[i].value);
+                }
+            }
+            for(var i=0; i<Sociale.length;i++)
+            {
+                if(Sociale[i].checked)
+                {
+                    scoreS += parseInt(Sociale[i].value);
+                }
+            }
+            for(var i=0; i<Phy.length;i++)
+            {
+                if(Phy[i].checked)
+                {
+                    scorePh += parseInt(Phy[i].value);
+                }
+            }
+            for(var i=0; i<Perso.length;i++)
+            {
+                if(Perso[i].checked)
+                {
+                    scorePer += parseInt(Perso[i].value);
+                }
+            }
+            alert("Vie Couple: "+ scoreVC +"\nSociale: "+ scoreS +"\nPhysique: "+scorePh+"\nPersonalite: "+scorePer);
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "{{ path('QuizResult') }}", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send('scoreVC=' + scoreVC+'&scoreSo='+scoreS+'&scorePh='+scorePh+'&scorePe='+scorePer);
+            xhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    alert("success");
+
+                }
+            }
+
+        }
+    </script>
+{% endblock %}
+

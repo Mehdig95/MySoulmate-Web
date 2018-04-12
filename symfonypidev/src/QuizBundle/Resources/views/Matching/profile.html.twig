@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+
+
+    <section class="inner-intro details-page bg bg-fixed bg-overlay-black-20 pos-r" >
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="profile-cntn text-white">
+                        <ul>
+                            <li><img src="{{ asset(profile.imageName) }}" width="200" height="200"></li>
+                            <li><div class="profile-text">  <h4>{{ profile.firstName }}_{{ profile.lastName}}</h4> <h5>Member Sincen {{ profile.dateInscrit | date('M') }} {{ profile.dateInscrit | date('Y') }}</h5></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!--=================================
+     banner -->
+
+    <section class="page-section-ptb"><div class="container"><div class="row">
+                <div class="col-sm-12 mb-30 text-center"><h2 class="title divider">INFORMATION</h2></div>
+                <div class="col-sm-12">
+                    <div class="accordion icon">
+                        <div class="acd-group"> <a href="#" class="acd-heading">INFORMATION</a>
+                            <div class="acd-des">
+
+                                <li><span><h2>First Name:</h2></span>  <h4> {{ profile.lastName }}</h4> </li>
+                                <li><span><h2>Last Name:</h2></span>   <h4>  {{ profile.firstName }}</h4></li>
+                                <li><span><h2>Phone number:</h2></span>  <h4>{{ profile.numTel }}</h4></li>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+{% endblock %}

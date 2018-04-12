@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <body>
+    <!--=================================
+  banner -->
+
+    <section class="inner-intro details-page bg bg-fixed bg-overlay-black-20 pos-r" >
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="form-1 ptb-20">
+        <div class="container">
+            <div class="row">
+                <div class="banner-form">
+                    {{ form_start(form) }}
+                    <form>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="col-md-5 col-sm-12 control-label text-white">Seeking a</label>
+                                <div class="col-md-7 col-sm-12">
+                                    {{ form_widget(form.Sexe) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="col-sm-7 col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-12 control-label text-white">From</label>
+                                        <div class="col-md-10 col-sm-12">
+                                            {{ form_widget(form.From) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5 col-xs-6">
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-12 control-label text-white pl-0">To</label>
+                                        <div class="col-md-10 col-sm-12">
+                                            {{ form_widget(form.To) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        {{ form_row(form._token) }}
+                        <div class="col-sm-2"><a class="button btn-lg btn-theme full-rounded animated right-icn" onclick=""><span><input type="submit"/> <i class="glyph-icon flaticon-hearts" aria-hidden="true"></i></span></a></div>
+                    </form>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!--=================================
+they found true love -->
+
+    <section class="page-section-ptb text-center">
+        <div class="container">
+            <div class="row mb-50 xs-mb-30">
+                <div class="col-md-offset-2 col-md-8">
+                    <h2 class="title divider-2 mb-30">They found true love</h2>
+                    <p class="lead xs-mt-30">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed <br>do eiusmod tempor incididunt ut labore et dolore magna</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 xs-mb-30">
+                    <div class="timeline-badge mb-20"><img class="img-center" src="{{ asset('assets/images/timeline/01.png') }}" alt=""></div>
+
+                    <h4 class="title divider-3 mb-30">CREATE PROFILE</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  enim ad minim veniam,            quis</p>
+
+                </div>
+
+                <div class="col-sm-4 xs-mb-30">
+                    <div class="timeline-badge mb-20"><img class="img-center" src="{{ asset('assets/images/timeline/02.png') }}" alt=""></div>
+                    <h4 class="title divider-3 mb-30">FIND MATCH</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  enim ad minim veniam,            quis</p>
+
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="timeline-badge mb-20"><img class="img-center" src="{{ asset('assets/images/timeline/03.png') }}" alt=""></div>
+                    <h4 class="title divider-3 mb-30">START DATING</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  enim ad minim veniam,            quis</p>
+
+                </div>
+
+            </div>
+        </div></section>
+
+    </body>
+
+    <script src="{{ asset('assets/js/jquery-3.2.1.js') }}"></script>
+    <script>
+        $(function() {
+            $('#submitform').on('click', function() {
+                $('#matching').submit();
+            });
+        })
+    </script>
+
+{% endblock %}
+

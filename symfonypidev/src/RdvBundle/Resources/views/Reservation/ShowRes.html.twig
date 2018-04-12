@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block title %} mon profile {% endblock %}
+{% block body %}
+
+
+
+    <section class="inner-intro details-page bg bg-fixed bg-overlay-black-20 pos-r" >
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="profile-cntn text-white">
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!--=================================
+     banner -->
+
+    <section class="page-section-ptb"><div class="container"><div class="row">
+                <div class="col-sm-12 mb-30 text-center"><h2 class="title divider">RESERVATION LIST</h2></div>
+                <div class="col-sm-12">
+                    <div class="accordion icon">
+                        <div class="acd-group"> <a href="#" class="acd-heading">RESERVATION LIST</a>
+                            <div class="acd-des">
+                                {% for rdvs in rdvs %}
+
+                                <li><span><h2>Date:</h2></span>  <h4> {{ rdvs.datedebut | date('D') }} {{ rdvs.datedebut | date('M') }} {{ rdvs.datedebut | date('Y') }}</h4> </li>
+                                <li><span><h2>Prix:</h2></span>   <h4>  {{ rdvs.idreservationRdv.prix }}</h4></li>
+                                <li><span><h2>Nom RDV:</h2></span>      <h4>    {{ rdvs.idreservationRdv.nomrdv }}</h4></li>
+                                    <p>---------------------------------------------------------------------------------</p>
+
+                                {% endfor %}
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+
+{% endblock %}
+

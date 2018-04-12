@@ -1,0 +1,178 @@
+{% extends 'base.html.twig' %}
+{% block title %} Add Publication {% endblock %}
+{% block body %}
+
+
+
+    <section class="inner-intro details-page bg bg-fixed bg-overlay-black-20 pos-r" >
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="profile-cntn text-white">
+                        <ul>
+                            <li><img src="{{ asset('images/products/'~ profile.imageName) }}" width="200" height="200"></li>
+                            <li><div class="profile-text">  <h4>{{ profile.firstName }}_{{ profile.lastName}}</h4> <h5>Member Sincen {{ profile.dateInscrit | date('M') }} {{ profile.dateInscrit | date('Y') }}</h5></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!--=================================
+     banner -->
+
+    <section class="page-section-ptb"><div class="container"><div class="row">
+                <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCl7wQB1wnWfhnWGx7zf8PIKyWMRiq6138" type="text/javascript"></script>
+
+                <div class="col-sm-12 mb-30 text-center"><h2 class="title divider">Add Publication</h2></div>
+                <div class="col-sm-12">
+                    <div class="accordion icon">
+                        <div class="acd-group"> <a href="#" class="acd-heading">Add Publication</a>
+                            <div class="acd-des">
+
+
+                                <div class="container-fluid gray-bg"><div class="row row-eq-height no-gutter">
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="defoult-form pall-50 light-form">
+                                                <div class="text-left"><h4 class="title divider-3">ADD PUB</h4></div>
+                                                <div id="formmessage" style="display:none"></div>
+                                                <div class="form-group half-group">
+
+                                                    {{ form_start(form, {'attr': {'onsubmit':'return validateForm()' } })}}
+                                                    <label>Image</label>
+                                                    <div class="input-group">
+                                                        {{ form_widget(form.imageFile) }}
+
+                                                    </div>
+                                                    <label>Adresse</label>
+                                                    <div class="input-group">
+                                                        {{ form_widget(form.adresse, { 'id' : 'cityAdresse','attr': {'class': 'form-control'}}) }}                                                        </div>
+                                                </div>
+                                                <div class="form-group half-group">
+
+                                                    <div class="input-group">
+                                                        {{ form_widget(form.altitude, { 'id' : 'laltitude','attr': {'class': 'hidden' }}) }}                                                        </div>
+                                                </div>
+                                                <div class="form-group">
+
+                                                    <div class="input-group">
+                                                        {{ form_widget(form.longitude, {'id' : 'longitude','attr': {'class': 'hidden' }}) }}                                                        </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Publication</label>
+                                                    <div class="input-group">
+                                                        {{ form_widget(form.text, {'attr': {'class': 'ckeditor' }}) }}                                                        </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <h3> Location  </h3>
+                                            <script type="text/javascript" src="{{ asset('assets/js/jquery-3.1.1.min.js') }}"></script>
+
+
+
+                                            <center>
+                                                <div id="dvMap" style="width: 300px; height: 200px;">
+
+                                                </div>
+                                            </center>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <center>   <a class="button btn-md btn-theme full-rounded animated right-icn" ><span> {{ form_widget(form.AddPub, {'attr': {'class': 'awe-btn awe-btn-1 awe-btn-medium' }}) }} <i class="glyph-icon flaticon-hearts" aria-hidden="true"></i></span></a></center>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <script type="text/javascript" >
+        $(function () {
+            var mapOptions = {
+                center: new google.maps.LatLng(36.8, 10.1),
+                zoom: 7,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            var infoWindow = new google.maps.InfoWindow();
+            var latlngbounds = new google.maps.LatLngBounds();
+            var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+            google.maps.event.addListener(map,
+                'click',
+                function (e) {
+
+
+                    document.getElementById("lat").value = e.latLng.lat();
+                    document.getElementById("long").value = e.latLng.lng();
+
+
+                });
+            marker = new google.maps.Marker({
+                map: map,
+                draggable: true,
+                animation: google.maps.Animation.DROP,
+                position: { lat: 36.8, lng: 10.1 }
+            });
+            marker.addListener('click', toggleBounce);
+            //marker.setPosition(tx);
+            google.maps.event.addListener(marker,
+                'dragend',
+                function () {
+                    var lat = marker.getPosition().lat();
+                    var lng = marker.getPosition().lng();
+
+                    var latlng = new google.maps.LatLng(lat, lng);
+                    var geocoder = geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({ 'latLng': latlng },
+                        function (results, status) {
+
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                if (results[1]) {
+                                    //alert("Location: " + results[1].formatted_address);
+                                    $(document).find("#cityAdresse").val(results[1].formatted_address);
+                                    $("#cityAdresse").val(results[1].formatted_address);
+                                    $("#laltitude").val(results[1].geometry.location.lat());
+                                    $("#longitude").val(results[1].geometry.location.lng());
+                                }
+                            }
+                        });
+
+                });
+            google.maps.event.addListener(marker,
+                'tx',
+                function () {
+                    var tx = marker.setPosition().tx();
+                    $('#tx').val(tx);
+
+                });
+
+
+            function toggleBounce() {
+                if (marker.getAnimation() !== null) {
+                    marker.setAnimation(null);
+                } else {
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                }
+            }
+
+        });
+
+
+    </script>
+
+{% endblock %}
+

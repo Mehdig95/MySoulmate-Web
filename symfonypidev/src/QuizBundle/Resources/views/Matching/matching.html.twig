@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <body>
+    <!-- <section class="page-section-ptb profile-slider pb-30 xs-pb-60 grey-bg">
+             <div class="row mb-30 xs-mb-0">
+                 <div class="col-md-offset-1 col-md-10 text-center">
+                     <h2 class="title divider">Ce sont les profiles qui vous rassemble!!</h2>
+                 </div>
+             </div>-->
+    <br>
+    <br>
+    <section>
+        <div class="row mb-50">
+            {% for user in users %}
+                <div class="col-md-3 col-sm-6 col-xs-6 col-xx-12">
+                    <div class="team boxed">
+                        <div class="team-images"> <img class="img-responsive" src="{{ asset(user.imageName) }}" alt=""> </div>
+                        <div class="team-description">
+                            <h5 class="title"><a href="">{{ user.username }}</a></h5>
+                            <span>{{ user.Age }}</span>
+                            <p>ensen behi! nheb naamel 3ala9at.</p>
+
+                            <div class="team-social-icon social-icons color-hover">
+                                <ul>
+                                    <li class="social-facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li class="social-twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li class="social-gplus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    <li class="social-dribbble"><a href="{{ path('ViewProfile',{'user': user.id}) }}"><i class="fa fa-dribbble"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+    </section>
+    </body>
+    <!-- </section>-->
+
+{% endblock %}

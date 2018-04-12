@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block title %} Products List {% endblock %}
+{% block body %}
+    <section class="inner-intro bg bg-fixed bg-overlay-black-60" >
+        <div class="container">
+            <div class="row intro-title text-center">
+                <div class="col-sm-12">
+                    <div class="section-title"><h1 class="pos-r divider"><span class="sub-title">Products LIST</span></h1></div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="page-section-ptb pb-30 text-center story-slider">
+        <span data-placeholder="Select">  {{ knp_pagination_sortable(Prod, 'Alphabet', 'logements.nomlogement') }}</span>
+        {% for Prod in Prod %}
+            <div class="container">
+                <div class="row mb-50 xs-mb-30">
+
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="story-item">
+                            <div class="story-image clearfix"><img class="img-responsive" src="{{ asset('images/products/'~ Prod.nomImage) }}" alt="">
+                                <div class="story-link"><a href="{{ path("ProduitDetail",{'id':Prod.id}) }}"><i class="glyph-icon flaticon-add"></i></a></div>
+                            </div>
+
+                            <div class="story-details text-center">
+                                <div class="about-des">{{ Prod.nom }} </div>
+                            </div>
+                            <div class="yellow-bg story-text ptb-20 text-white">
+                                <h5 class="title text-uppercase">{{ Prod.prix }}</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        {% endfor %}
+        {{ knp_pagination_render(Prod) }}
+    </section>
+{% endblock %}

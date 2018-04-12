@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+{% block title %} Add Booking {% endblock %}
+{% block body %}
+
+
+
+    <section class="inner-intro details-page bg bg-fixed bg-overlay-black-20 pos-r" >
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="profile-cntn text-white">
+                        <ul>
+                            <li><img src="{{ asset('images/products/'~ profile.imageName) }}" width="200" height="200"></li>
+                            <li><div class="profile-text">  <h4>{{ profile.firstName }}_{{ profile.lastName}}</h4> <h5>Member Sincen {{ profile.dateInscrit | date('M') }} {{ profile.dateInscrit | date('Y') }}</h5></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!--=================================
+     banner -->
+
+    <section class="page-section-ptb"><div class="container"><div class="row">
+                <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCl7wQB1wnWfhnWGx7zf8PIKyWMRiq6138" type="text/javascript"></script>
+
+                <div class="col-sm-12 mb-30 text-center"><h2 class="title divider">Add Booking</h2></div>
+                <div class="col-sm-12">
+                    <div class="accordion icon">
+                        <div class="acd-group"> <a href="#" class="acd-heading">Add Bouking</a>
+                            <div class="acd-des">
+
+
+                                <div class="container-fluid gray-bg"><div class="row row-eq-height no-gutter">
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="defoult-form pall-50 light-form">
+                                                <div class="text-left"><h4 class="title divider-3">ADD Booking</h4></div>
+                                                <div id="formmessage" style="display:none"></div>
+                                                <div class="form-group half-group">
+
+                                                    {{ form_start(form, {'attr': {'onsubmit':'return validateForm()' } })}}
+                                                    <label>Date</label>
+                                                    <div class="input-group">
+                                                        {{ form_widget(form.datedebut)   }}
+
+                                                    </div>
+                                                    <label>Place Number</label>
+                                                    <div class="input-group">
+                                                        {{ form_widget(form.nbrplacereserver, {'attr': {'class': 'form-control'  }}) }}                                                </div>
+                                                <div class="form-group half-group">
+                                                    <label> number of place avalable</label>
+                                                    <div class="input-group">
+                                                        <input type="text" id="gstay_guesthostbundle_logement_nbrchambredispo"  value="{{ Rdv.nbrplacedispo }}" disabled >
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>  Price </label>
+                                                    <div class="input-group">
+
+                                                        <input type="text" id="gstay_guesthostbundle_logement_nbrchambredispo"  value="{{ Rdv.prix }}" disabled >                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <center>   <a class="button btn-md btn-theme full-rounded animated right-icn" ><span> {{ form_widget(form.Save, {'attr': {'class': 'awe-btn awe-btn-1 awe-btn-medium' }}) }} <i class="glyph-icon flaticon-hearts" aria-hidden="true"></i></span></a></center>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+
+{% endblock %}
+

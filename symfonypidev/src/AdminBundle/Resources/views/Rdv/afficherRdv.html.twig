@@ -1,0 +1,168 @@
+{% extends 'AdminBundle:Default:index.html.twig' %}
+
+{% block body %}
+
+
+
+    {{ form(Form) }}
+
+    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th class="center">
+                <label>
+                    <input type="checkbox" />
+                    <span class="lbl"></span>
+                </label>
+            </th>
+
+            <th>Nom Rdv</th>
+            <th>Image</th>
+            <th>Capacite Acceuil</th>
+            <th>Nombre Place Disponible</th>
+            <th>Prix</th>
+            <th>Description</th>
+            <th>Disponibilite</th>
+            <th>etat</th>
+            <th>code postal</th>
+
+
+
+
+            <th class="hidden-480">Delete Or Update</th>
+
+        </tr>
+        </thead>
+
+        <tbody id="body">
+
+
+        {% for rdv in rdvs %}
+
+
+        <tr>
+            <td class="center">
+                <label>
+                    <input type="checkbox" />
+                    <span class="lbl"></span>
+                </label>
+            </td>
+
+
+            <td>{{ rdv.nomrdv }}</td>
+            <td><img src="{{ asset('images/products/'~ rdv.nomImage) }}" style="width: 50px;height: 50px"></td>
+
+            <td>{{ rdv.capaciteacceuil }}</td>
+            <td>{{ rdv.nbrplacedispo }}</td>
+            <td>{{ rdv.prix }}</td>
+            <td>{{ rdv.description }}</td>
+            <td>{{ rdv.disponibilite }}</td>
+            <td>{{ rdv.etat }}</td>
+            <td>{{ rdv.codepostal }}</td>
+
+
+
+            <td>
+                <div class="hidden-phone visible-desktop btn-group">
+
+
+
+
+
+                    <a href="{{ path('ModifierRdv',{'id': rdv.id}) }}"  <button   class="btn btn-mini btn-info" value="Supprimer">
+                        <i class="icon-edit bigger-120"></i>Modifier</button>  </a>
+
+                    <a href="{{ path('deleteRdv',{'id': rdv.id}) }}"<button class="btn btn-mini btn-danger">  <i class="icon-trash bigger-120"></i> Supprimer </button></a>
+
+
+
+
+
+                </div>
+                {% endfor %}
+
+                <div class="hidden-desktop visible-phone">
+                    <div class="inline position-relative">
+                        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-cog icon-only bigger-110"></i>
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+                            <li>
+                                <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+																		<span class="blue">
+																			<i class="icon-zoom-in bigger-120"></i>
+																		</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																		<span class="green">
+																			<i class="icon-edit bigger-120"></i>
+																		</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="" class="tooltip-error" data-rel="tooltip" title="Delete">
+																		<span class="red">
+																			<i class="icon-trash bigger-120"></i>
+																		</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <script src="{{ asset('jquery-3.2.1.min.js') }}"></script>
+    <script>
+
+        $(function(){
+            $('#adminbundle_Rdv_form_nomrdv').keyup(
+                function () {
+                    //Récupération de la série
+                    var nomrdv=$('#adminbundle_Rdv_form_nomrdv').val();
+                    //Construction de la requête à solliciter
+                    var Data = 'nomrdv=' + nomrdv;
+
+                    $.ajax({
+                            //Construction de l'objet XHR avec la méthode POST
+                            type: "POST",
+                            url: "{{ path('ShowRdv') }}",
+                            data: Data,
+                            //Test sur le succèes de réponse
+                            success: function (data) {
+                                console.log(data);
+
+                                $('#body').html("");
+
+                                //Parcours
+                                $.each(data, function (k,el) {
+
+                                    $('#body').fadeIn();
+
+
+                                    $('#body').append(
+                                        "<tr><td></td><td>"+el.nomrdv+"</td><td>"+el.nomImage+"</td><td>"+el.capaciteacceuil+"</td><td>\"+el.nbrplacedispo+\"</td><td>\"+el.prix+\"</td><td>\"+el.description+\"</td><td>\"+el.disponibilite+\"</td><td>\"+el.etat+\"</td><td>\"+el.codepostal+\"</td></tr>"
+                                    )
+                                })
+
+
+                            }
+                        }
+                    );
+                }
+            );
+
+        });
+
+    </script>
+
+
+{% endblock %}

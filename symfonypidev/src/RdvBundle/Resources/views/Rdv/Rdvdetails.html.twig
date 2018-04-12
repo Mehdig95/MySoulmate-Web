@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block title %} RDV Details {% endblock %}
+{% block body %}
+    <!-- Main -->
+
+    <section class="inner-intro bg bg-fixed bg-overlay-black-60" >
+        <div class="container">
+            <div class="row intro-title text-center">
+                <div class="col-sm-12">
+                    <div class="section-title"><h1 class="pos-r divider"><span class="sub-title">DATE DETAILS</span></h1></div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <section class="page-section-ptb">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="title"><span class="text-yellow text-uppercase">{{ rdv.nomrdv }}</span></h3>
+                    <h6 class="clearfix mb-20">{{ rdv.prix }}</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <img class="img-responsive xs-mb-30" src="{{ asset('images/products/'~ rdv.nomImage) }} alt="">
+
+                    <p class="mt-20"><h4>Adresse :</h4> <h4>{{ rdv.adresse }}</h4><br><br>
+                    <h4>Capacitée d'acceuil:</h4><h4>{{ rdv.capaciteacceuil }}</h4><br><br>
+                    <h4>Disponibilitée:</h4> <h4>{{ rdv.disponibilite }}</h4><br><br>
+
+                    </p>
+                </div>
+            </div>
+            {% if( rdv.nbrplacedispo == 0) %}
+
+                <h2> Il n'y a pas de place despo </h2>
+
+            {% else %}
+                <a class="button btn-md btn-theme full-rounded animated right-icn"  href="{{ path('addreservation',{'idR':rdv.id }) }}"><span>ADD TO MY RDV <i class="glyph-icon flaticon-hearts" aria-hidden="true"></i></span></a>
+
+            {% endif %}
+        </div></section>
+
+
+{% endblock %}
+

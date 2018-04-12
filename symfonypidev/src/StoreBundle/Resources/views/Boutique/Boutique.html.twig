@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block title %} Store {% endblock %}
+{% block body %}
+    <section class="inner-intro bg bg-fixed bg-overlay-black-60" >
+        <div class="container">
+            <div class="row intro-title text-center">
+                <div class="col-sm-12">
+                    <div class="section-title"><h1 class="pos-r divider"><span class="sub-title">Products LIST</span></h1></div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="page-section-ptb pb-30 text-center story-slider">
+        <span data-placeholder="Select">  {{ knp_pagination_sortable(Bou, 'Alphabet', 'logements.nomlogement') }}</span>
+        {% for Bou in Bou %}
+            <div class="container">
+                <div class="row mb-50 xs-mb-30">
+
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="story-item">
+                            <div class="story-image clearfix"><img class="img-responsive" src="{{ asset('images/products/'~ Bou.nomImage) }}" alt="">
+                                <div class="story-link"><a href="{{ path('listProduit') }}"><i class="glyph-icon flaticon-add"></i></a></div>
+                            </div>
+
+                            <div class="story-details text-center">
+                                <div class="about-des"><h4>Location</h4>{{ Bou.lieu }} </div>
+                                <div class="about-des"><h4>Adresse</h4>{{ Bou.adresse }} </div>
+                                <div class="about-des"><h4>Phone Number</h4>{{ Bou.telephonne }} </div>
+                            </div>
+                            <div class="yellow-bg story-text ptb-20 text-white">
+                                <h5 class="title text-uppercase">{{ Bou.nom }}</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        {% endfor %}
+        {{ knp_pagination_render(Bou) }}
+    </section>
+{% endblock %}

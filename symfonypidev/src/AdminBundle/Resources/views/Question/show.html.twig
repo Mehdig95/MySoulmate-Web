@@ -1,0 +1,60 @@
+{% extends 'AdminBundle:Default:index.html.twig' %}
+
+{% block body %}
+    <h1>Question</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ question.id }}</td>
+            </tr>
+            <tr>
+                <th>Question</th>
+                <td>{{ question.question }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ question.type }}</td>
+            </tr>
+            <tr>
+                <th>Reponse1</th>
+                <td>{{ question.reponse1 }}</td>
+            </tr>
+            <tr>
+                <th>Reponse2</th>
+                <td>{{ question.reponse2 }}</td>
+            </tr>
+            <tr>
+                <th>Reponse3</th>
+                <td>{{ question.reponse3 }}</td>
+            </tr>
+            <tr>
+                <th>Scorerep1</th>
+                <td>{{ question.scorerep1 }}</td>
+            </tr>
+            <tr>
+                <th>Scorerep2</th>
+                <td>{{ question.scorerep2 }}</td>
+            </tr>
+            <tr>
+                <th>Scorerep3</th>
+                <td>{{ question.scorerep3 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('question_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('question_edit', { 'id': question.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

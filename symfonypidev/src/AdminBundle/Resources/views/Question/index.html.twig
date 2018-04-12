@@ -1,0 +1,96 @@
+{% extends 'AdminBundle:Default:index.html.twig' %}
+{% block body %}
+
+    {{ form(form) }}
+
+    <h1>Questions list</h1>
+
+    <table  class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Question</th>
+                <th>Type</th>
+                <th>Reponse1</th>
+                <th>Reponse2</th>
+                <th>Reponse3</th>
+                <th>Scorerep1</th>
+                <th>Scorerep2</th>
+                <th>Scorerep3</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="body">
+        {% for question in questions %}
+            <tr>
+                <td><a href="{{ path('question_show', { 'id': question.id }) }}">{{ question.id }}</a></td>
+                <td>{{ question.question }}</td>
+                <td>{{ question.type }}</td>
+                <td>{{ question.reponse1 }}</td>
+                <td>{{ question.reponse2 }}</td>
+                <td>{{ question.reponse3 }}</td>
+                <td>{{ question.scorerep1 }}</td>
+                <td>{{ question.scorerep2 }}</td>
+                <td>{{ question.scorerep3 }}</td>
+                <td>
+                    <ul>
+                        <li><a href="{{ path('question_show', { 'id': question.id }) }}">show</a></li>
+                        <li><a href="{{ path('question_edit', { 'id': question.id }) }}">edit</a></li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('question_new') }}">Create a new question</a>
+        </li>
+    </ul>
+
+
+    <script src="{{ asset('jquery-3.2.1.min.js') }}"></script>
+    <script>
+
+        $(function(){
+            $('#quizbundle_question_Question').keyup(
+                function () {
+                    //Récupération de la série
+                    var question=$('#quizbundle_question_Question').val();
+                    //Construction de la requête à solliciter
+                    var Data = 'question=' + question;
+
+                    $.ajax({
+                            //Construction de l'objet XHR avec la méthode POST
+                            type: "POST",
+                            url: "{{ path('question_index') }}",
+                            data: Data,
+                            //Test sur le succèes de réponse
+                            success: function (data) {
+                                console.log(data);
+
+                                $('#body').html("");
+
+                                //Parcours
+                                $.each(data, function (k,el) {
+
+                                    $('#body').fadeIn();
+
+
+                                    $('#body').append(
+                                        "<tr><td><a>"+el.id+"</a></td><td>"+el.question+"</td><td>"+el.type+"</td><td>"+el.reponse1+"</td><td>"+el.reponse2+"</td><td>"+el.reponse3+"</td><td>"+el.scorerep1+"</td><td>"+el.scorerep2+"</td><td>"+el.scorerep3+"</td><td><ul><li><a href='/symfonypidev/web/app_dev.php/Admin/"+ el.id+"/showquestion'>show</a><li><a href='/symfonypidev/web/app_dev.php/Admin/"+el.id+"/editquestion'>edit</a></li></ul></td></tr>"
+                                    )
+                                })
+
+
+                            }
+                        }
+                    );
+                }
+            );
+
+        });
+
+    </script>
+{% endblock %}

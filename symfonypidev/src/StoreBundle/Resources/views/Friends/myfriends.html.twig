@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+{% block title %} My FreindsList {% endblock %}
+{% block body %}
+
+    <section class="inner-intro details-page bg bg-fixed bg-overlay-black-20 pos-r" >
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="profile-cntn text-white">
+                        <ul>
+                            <li><img src="{{ asset('images/products/'~ profile.imageName) }}" width="200" height="200"></li>
+                            <li><div class="profile-text">  <h4>{{ profile.firstName }}_{{ profile.lastName}}</h4> <h5>Member Sincen {{ profile.dateInscrit | date('M') }} {{ profile.dateInscrit | date('Y') }}</h5></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!--=================================
+     banner -->
+
+    <section class="page-section-ptb"><div class="container"><div class="row">
+                <div class="col-sm-12 mb-30 text-center"><h2 class="title divider">Freinds List</h2></div>
+                <div class="col-sm-12">
+                    <div class="accordion icon">
+                        <div class="acd-group"> <a href="#" class="acd-heading">Friends List</a>
+                             {% for alluser in alluser %}
+                                 {% if alluser.id != profile.id  %}
+                            <div class="acd-des">
+                                <img src="{{ asset('images/products/'~ alluser.imageName)  }}" width="50px" height="50px" alt="">
+                                <li><span><h2>First Name:</h2></span>  <h4> {{ alluser.lastName }}</h4> </li>
+                                <li><span><h2>Last Name:</h2></span>   <h4>  {{ alluser.firstName }}</h4></li>
+
+                                <a href="{{ path('sendFriend',{'id': alluser.id}) }}"><i class="fa fa-trash-o" aria-hidden="true"></i> send</a>
+
+                            </div>
+                                 {% endif %}
+                             {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section class="page-section-ptb"><div class="container"><div class="row">
+                <div class="col-sm-12 mb-30 text-center"><h2 class="title divider">My Freinds List</h2></div>
+                <div class="col-sm-12">
+                    <div class="accordion icon">
+                        <div class="acd-group"> <a href="#" class="acd-heading">My Friends List</a>
+                            {% for mylist in mylist %}
+                                {% if mylist.idReciver == profile or mylist.idSender == profile   %}
+                                    <div class="acd-des">
+
+                                        <img src="{{ asset('images/products/'~ mylist.idSender.imageName)  }}" width="50px" height="50px" alt="">
+                                        <li><span><h2>First Name:</h2></span>  <h4> {{ mylist.idSender.firstName }}</h4> </li>
+                                        <li><span><h2>Last Name:</h2></span>   <h4>  {{ mylist.idSender.lastName }}</h4></li>
+                                    {% if mylist.stat == "wait"    %}
+                                        <a href="{{ path('actionFriend',{'id': mylist.idSender.id , 'var' : "accpet"}) }}"><i class="fa fa-trash-o" aria-hidden="true"></i> accpeter</a>
+                                        <a href="{{ path('actionFriend',{'id': mylist.idSender.id , 'var' : "refus"}) }}"><i class="fa fa-trash-o" aria-hidden="true"></i> refuser</a> </td>
+                                    {% else %}
+                                        <li><span><h2>Stat:</h2></span>   <h4>{{ mylist.stat }}</h4></li>
+                                    {% endif %}
+                                        </div>
+                                {% endif %}
+                                {% if mylist.idReciver == profile    %}
+
+                                    <div class="acd-des">
+
+                                        <img src="{{ asset('images/products/'~ mylist.idReciver.imageName)  }}" width="50px" height="50px" alt="">
+                                        <li><span><h2>First Name:</h2></span>  <h4> {{ mylist.idReciver.firstName }}</h4> </li>
+                                        <li><span><h2>Last Name:</h2></span>   <h4>  {{ mylist.idReciver.lastName }}</h4></li>
+
+
+                                            <li><span><h2>Stat:</h2></span>   <h4>{{ mylist.stat }}</h4></li>
+
+                                    </div>
+
+                                {% endif %}
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+{% endblock body %}

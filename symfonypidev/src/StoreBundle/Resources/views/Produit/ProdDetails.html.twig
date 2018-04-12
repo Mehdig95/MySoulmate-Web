@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block title %} Product Details {% endblock %}
+{% block body %}
+    <!-- Main -->
+
+    <section class="inner-intro bg bg-fixed bg-overlay-black-60" >
+        <div class="container">
+            <div class="row intro-title text-center">
+                <div class="col-sm-12">
+                    <div class="section-title"><h1 class="pos-r divider"><span class="sub-title">DETAILS</span></h1></div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <section class="page-section-ptb">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="title"><span class="text-yellow text-uppercase">{{ Prod.nom }}</span></h3>
+                    <h6 class="clearfix mb-20">{{ Prod.prix }}</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <img class="img-responsive xs-mb-30" src="{{ asset('images/products/'~ Prod.nomImage) }}" >
+
+                    <p class="mt-20"><h4>Prix :</h4> <h4>{{ Prod.prix }}</h4><br><br>
+
+                    </p>
+                    {{ form_start(form)}}
+                    {{ form_widget(form.note) }}
+                    <input type="submit" value="Noter">
+                    {{ form_end(form) }}
+                </div>
+            </div>
+
+            <a class="button btn-md btn-theme full-rounded animated right-icn"  href="{{ path('addCommm',{'idR':Prod.id }) }}"><span>ADD TO MY RDV <i class="glyph-icon flaticon-hearts" aria-hidden="true"></i></span></a>
+
+
+        </div></section>
+
+
+{% endblock %}
+

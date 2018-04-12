@@ -1,0 +1,103 @@
+{% extends 'AdminBundle:Default:index.html.twig' %}
+
+{% block body %}
+
+
+
+
+
+    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th class="center">
+                <label>
+                    <input type="checkbox" />
+                    <span class="lbl"></span>
+                </label>
+            </th>
+
+            <th>Nom Rdv</th>
+            <th>Image</th>
+            <th>Nombre Place Reserver</th>
+            <th>Date</th>
+            <th>Prix</th>
+
+
+
+
+
+
+
+        </tr>
+        </thead>
+
+        <tbody>
+
+
+        {% for rdv in rdvs %}
+
+
+        <tr>
+            <td class="center">
+                <label>
+                    <input type="checkbox" />
+                    <span class="lbl"></span>
+                </label>
+            </td>
+
+
+            <td>{{ rdv.idreservationrdv.nomrdv }}</td>
+            <td><img src="{{ asset('images/products/'~ rdv.idreservationrdv.nomImage) }}" style="width: 50px;height: 50px"></td>
+            <td>{{ rdv.nbrplacereserver }}</td>
+
+            <td>{{ rdv.datedebut | date('D') }} {{ rdv.datedebut | date('M') }} {{ rdv.datedebut | date('Y') }}</td>
+            <td>{{ rdv.idreservationrdv.prix }}</td>
+
+
+
+
+
+
+
+                </div>
+                {% endfor %}
+
+                <div class="hidden-desktop visible-phone">
+                    <div class="inline position-relative">
+                        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-cog icon-only bigger-110"></i>
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+                            <li>
+                                <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+																		<span class="blue">
+																			<i class="icon-zoom-in bigger-120"></i>
+																		</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																		<span class="green">
+																			<i class="icon-edit bigger-120"></i>
+																		</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="" class="tooltip-error" data-rel="tooltip" title="Delete">
+																		<span class="red">
+																			<i class="icon-trash bigger-120"></i>
+																		</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+
+{% extends 'AdminBundle:Default:index.html.twig' %}
+
+{% block javascripts %}
+
+    <script src="{{ asset('jquery-3.2.1.min.js') }}"></script>
+    <script>
+
+        $(function(){
+            $('#recherche_voiture_form_Serie').keyup(
+                function () {
+                    //Récupération de la série
+                    var nom=$('#recherche_produit_form_Serie').val();
+                    //Construction de la requête à solliciter
+                    var Data = 'nom=' + nom;
+
+                    $.ajax({
+                            //Construction de l'objet XHR avec la méthode POST
+                            type: "POST",
+                            url: "{{ path('SearchProduit') }}",
+                            data: Data,
+                            //Test sur le succèes de réponse
+                            success: function (data) {
+                                console.log(data);
+                                //Affichage des données récupérés dans un div
+                                $("#div").html(
+                                    "<table id='res' border='1'>"+
+                                    "<td>nom</td>"+
+                                    "<td>image</td>"+
+                                    "<td>prix</td>"
+                                    );
+
+                                //Parcours
+                                $.each(data, function (k,el) {
+                                    $("#affichage").hide();
+                                    $("#res").append(
+                                        "<tr>"+
+                                        "<td>"+el.nom+"</td>"+
+                                        "<td>"+el.imageNom+"</td>"+
+                                        "<td>"+ el.prix+"</td>"+
+
+                                        "</tr>"
+                                    );
+                                })
+                            }
+                        }
+                    );
+                }
+            );
+        });
+    </script>
+{% endblock %}
+{% block body %}
+
+    <h1>Recherche DQL des voitures par série</h1>
+    {{ form_start(Form)}}
+    {{ form_end(Form) }}
+
+    <h2>Liste des Produits</h2>
+    <div id="div"></div>
+
+    <!--table>
+        <tr>
+            <td>Serie</td>
+            <td>Date</td>
+            <td>Marque</td>
+            <td>Modèle</td>
+        </tr>
+        {#% for voiture in voitures %}
+            <tr>
+                <td> {{ voiture.serie }}</td>
+                <td> {{ voiture.dateMiseEnCirculation | date }}</td>
+                <td> {{ voiture.marque }}</td>
+                <td> {{ voiture.modele.libelle }}</td>
+
+            </tr>
+        {% endfor %#}
+    </table-->
+{% endblock %}

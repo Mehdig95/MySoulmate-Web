@@ -1,0 +1,156 @@
+{% extends 'AdminBundle:Default:index.html.twig' %}
+
+{% block body %}
+
+
+
+{{ form(Form) }}
+
+    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th class="center">
+                <label>
+                    <input type="checkbox" />
+                    <span class="lbl"></span>
+                </label>
+            </th>
+
+            <th>Nom</th>
+            <th>Image</th>
+            <th>Prix</th>
+
+
+
+
+
+            <th class="hidden-480">Delete Or Update</th>
+
+        </tr>
+        </thead>
+
+        <tbody  id="body" >
+
+
+        {% for produit in Prod %}
+
+
+        <tr>
+            <td class="center">
+                <label>
+                    <input type="checkbox" />
+                    <span class="lbl"></span>
+                </label>
+            </td>
+
+
+            <td>{{ produit.nom }}</td>
+            <td><img src="{{ asset('images/products/') }}{{ produit.nomImage }}" style="width: 50px;height: 50px"></td>
+
+            <td>{{ produit.prix }}</td>
+
+
+
+
+            <td>
+                <div class="hidden-phone visible-desktop btn-group">
+
+
+
+
+
+                    <a href="{{ path("EditProduit",{'id': produit.id}) }}" >    <button   class="btn btn-mini btn-info">
+                        <i class="icon-edit bigger-120"></i> Edit</button>  </a>
+
+                    <a href="{{ path("DeliteProduit",{'id': produit.id}) }}"><button class="btn btn-mini btn-danger">  <i class="icon-trash bigger-120"></i>Delite </button></a>
+
+
+
+
+
+                </div>
+                {% endfor %}
+
+                <div class="hidden-desktop visible-phone">
+                    <div class="inline position-relative">
+                        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-cog icon-only bigger-110"></i>
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+                            <li>
+                                <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+																		<span class="blue">
+																			<i class="icon-zoom-in bigger-120"></i>
+																		</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																		<span class="green">
+																			<i class="icon-edit bigger-120"></i>
+																		</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																		<span class="red">
+																			<i class="icon-trash bigger-120"></i>
+																		</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <script src="{{ asset('jquery-3.2.1.min.js') }}"></script>
+    <script>
+
+        $(function(){
+            $('#adminbundle_Produit_form_nom').keyup(
+                function () {
+                    //Récupération de la série
+                    var nom=$('#adminbundle_Produit_form_nom').val();
+                    //Construction de la requête à solliciter
+                    var Data = 'nom=' + nom;
+
+                    $.ajax({
+                            //Construction de l'objet XHR avec la méthode POST
+                            type: "POST",
+                            url: "{{ path('ShowProduit') }}",
+                            data: Data,
+                            //Test sur le succèes de réponse
+                            success: function (data) {
+                                console.log(data);
+
+                                $('#body').html("");
+
+                                //Parcours
+                                $.each(data, function (k,el) {
+
+                                    $('#body').fadeIn();
+
+
+                                    $('#body').append(
+                                        "<tr><td></td><td>"+el.nom+"</td><td>"+el.nomImage+"</td><td>"+el.prix+"</td></tr>"
+                                    )
+                                })
+
+
+                            }
+                        }
+                    );
+                }
+            );
+
+        });
+
+    </script>
+
+{% endblock %}

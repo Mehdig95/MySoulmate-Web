@@ -1,0 +1,114 @@
+{% extends 'AdminBundle:Default:index.html.twig' %}
+
+{% block body %}
+
+
+
+
+
+    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th class="center">
+                <label>
+                    <input type="checkbox" />
+                    <span class="lbl"></span>
+                </label>
+            </th>
+
+            <th>Nom</th>
+            <th>Image</th>
+            <th>Lieu</th>
+            <th>Adresse</th>
+            <th>Telephonne</th>
+
+
+
+
+            <th class="hidden-480">Delete Or Update</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+
+
+        {% for boutique in boutiques %}
+
+
+        <tr>
+            <td class="center">
+                <label>
+                    <input type="checkbox" />
+                    <span class="lbl"></span>
+                </label>
+            </td>
+
+
+            <td>{{ boutique.nom }}</td>
+            <td><img src="{{ asset('images/products/') }}{{ boutique.nomImage }}" style="width: 50px;height: 50px"></td>
+
+            <td>{{ boutique.lieu }}</td>
+            <td>{{ boutique.adresse }}</td>
+            <td>{{ boutique.telephonne }}</td>
+
+
+
+            <td>
+                <div class="hidden-phone visible-desktop btn-group">
+
+
+
+
+
+                    <a href="{{ path("EditBoutique",{'id': boutique.id}) }}"  >   <button   class="btn btn-mini btn-info">
+                        <i class="icon-edit bigger-120"></i>Edit </button>  </a>
+
+                    <a href="{{ path("DeliteBoutique",{'id': boutique.id}) }}"> <button class="btn btn-mini btn-danger">  <i class="icon-trash bigger-120"></i> Delite</button></a>
+
+
+
+
+
+                </div>
+                {% endfor %}
+
+                <div class="hidden-desktop visible-phone">
+                    <div class="inline position-relative">
+                        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-cog icon-only bigger-110"></i>
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+                            <li>
+                                <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+																		<span class="blue">
+																			<i class="icon-zoom-in bigger-120"></i>
+																		</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+																		<span class="green">
+																			<i class="icon-edit bigger-120"></i>
+																		</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+																		<span class="red">
+																			<i class="icon-trash bigger-120"></i>
+																		</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endblock %}
